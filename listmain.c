@@ -37,8 +37,4 @@ void main() {
     
     printf("\nlist from array... \n");
     list_print(l2, print_data);
-    
-
-        
-
 }

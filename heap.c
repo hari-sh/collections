@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "heap.h"
+#include "dsa/heap.h"
 
 int comparator(void* a, void* b) {
     return (*(int*)a > *(int*)b)? 1 : 0;

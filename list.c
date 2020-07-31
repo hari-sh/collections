@@ -1,4 +1,4 @@
-#include "list.h"
+#include "dsa/list.h"
 
 void print_data(void* data)  {
     printf("%d  ", *(int*)(data));

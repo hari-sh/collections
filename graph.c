@@ -1,8 +1,8 @@
-#include "list.h"
+#include "dsa/list.h"
 
 typedef struct Graph graph;
 struct Graph
-{ 
+{
 	int V; 
 	list** array;
 	int* visited;

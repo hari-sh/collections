@@ -11,7 +11,6 @@ void heap_push(heap*, void*);
 void* heap_pop(heap*);
 void heap_print(heap*, void (*print_element)(void*));
 
-
 struct heap {
     char* heap;
     int* count;

@@ -21,19 +21,19 @@ void list_insert(list*, int, void* data);
 void* list_delete(list* ,int);
 void* list_data(list* list,int index);
 void list_clear(list* list);
-void list_merge_sort(list* list, int (*list_comparator)(void* data1, void* data2));
 void list_swap(list_node** n1, list_node** n2);
+int (*list_comparator)(void* data);
 void* list_first(list* list, int (*list_comparator)(void* data));
 list* list_select(list* list, int (*list_comparator)(void* data));
-int (*list_comparator)(void* data, ...);
 list* list_copy(list* l);
 void list_concat(list* list1, list* list2);
 list* list_merge(list* list1, list* list2);
-void* mcopy(void* src, int size);
+void* list_mcopy(void* src, int size);
 
 struct list_node   {
     void* data;
     list_node *next;
+    list_node *prev;
 };
 
 struct list {
@@ -43,7 +43,7 @@ struct list {
     int count;
 };
 
-void* mcopy(void* src, int size)    {
+void* list_mcopy(void* src, int size)    {
     void* dest = malloc(size);
     memcpy (dest, src, size);
     return dest;
@@ -51,8 +51,9 @@ void* mcopy(void* src, int size)    {
 
 list_node* list_new_node(void* data, int size)    {
     list_node *temp = malloc(sizeof(list_node));
-    temp->data = mcopy(data, size);
+    temp->data = list_mcopy(data, size);
     temp->next = NULL;
+    temp->prev = NULL;
     return temp;
 }
 
@@ -70,6 +71,15 @@ void list_print(list* l, void (*list_print_data)(void*))  {
     while (p != NULL)   {
         list_print_data(p->data);
         p = p->next;
+    }
+    printf("\n");
+}
+
+void list_rprint(list* l, void (*list_print_data)(void*))  {
+    list_node *p = l->tail;
+    while (p != NULL)   {
+        list_print_data(p->data);
+        p = p->prev;
     }
     printf("\n");
 }
@@ -94,6 +104,7 @@ void list_push(list* l, void* data)  {
         (l->tail) = (l->head);
     }
     else    {
+        new_node->prev = l->tail;
         (l->tail)->next = new_node;
         (l->tail) = (l->tail)->next;
     }
@@ -102,20 +113,17 @@ void list_push(list* l, void* data)  {
 
 void* list_pop(list* l)  {
     void* res = NULL;
-    if (l->head != NULL)    {
-        if (l->head->next == NULL)    {
-            res = (l->head)->data;
+    if ((l->head) != NULL)  {
+        res = (l->tail)->data;
+        if (l->head == l->tail) {
+            free(l->head);
             (l->head) = NULL;
-            (l->tail) = NULL;
+            (l->tail) = NULL;         
         }
         else    {
-            res = (l->tail)->data;
-            list_node *p = (l->head);
-            while (p->next->next != NULL)
-                p = p->next;
-            free(p->next);
-            p->next = NULL;
-            (l->tail) = p;
+            (l->tail) = (l->tail)->prev;
+            free(l->tail->next);
+            l->tail->next = NULL;
         }
         (l->count)--;
     }
@@ -130,6 +138,7 @@ void list_add(list* l, void* data)   {
     }
     else   {
         new_node->next = (l->head);
+        (l->head)->prev = new_node;
         (l->head) = new_node;
     }
     (l->count)++;
@@ -138,14 +147,16 @@ void list_add(list* l, void* data)   {
 void* list_remove(list* l)  {
     void* res = NULL;
     if ((l->head) != NULL)  {
+        res = (l->head)->data;
         if (l->head == l->tail) {
-            res = (l->head)->data;
+            free(l->head);
             (l->head) = NULL;
-            (l->tail) = NULL;            
+            (l->tail) = NULL;         
         }
         else    {
-            res = (l->head)->data;
             (l->head) = (l->head)->next;
+            free(l->head->prev);
+            l->head->prev = NULL;
         }
         (l->count)--;
     }
@@ -164,6 +175,7 @@ void list_insert(list* l, int pos, void* n)    {
             for(int i=0; i<(pos-1); i++)
                 temp = temp->next;
             new_node->next = temp->next;
+            new_node->prev = temp;
             temp->next = new_node;
             (l->count)++;
         }
@@ -175,12 +187,16 @@ void* list_delete(list* l, int pos)   {
     if((pos < l->count) && (l->head != NULL))   {
         if (pos == 0)
             res = list_remove(l);
+        else if(pos==(l->count)-1)
+            res = list_pop(l);
         else    {
             list_node *temp = l->head;
             for(int i=0; i<(pos-1); i++)
                 temp = temp->next;
             res = temp->next->data;
             temp->next = temp->next->next;
+            free(temp->next->prev);
+            temp->next->prev = temp;
             (l->count)--;
         }
     }
@@ -198,7 +214,8 @@ void list_clear(list* l)
        free(current); 
        current = next; 
    } 
-    l->head = NULL; 
+    l->head = NULL;
+    l->tail = NULL;
 }
 
 void* list_data(list* l,int n)    {
@@ -210,79 +227,6 @@ void* list_data(list* l,int n)    {
         return p->data;
     }
     return NULL;
-}
-
-void list_merge_sort(list* l, int (*list_comparator)(void*, void*)) 
-{ 
-    list_node** head = &(l->head);
-	int len = l->count;
-
-	if (*head == NULL) 
-		return; 
-	list_node* start1 = NULL, *end1 = NULL; 
-	list_node* start2 = NULL, *end2 = NULL; 
-	list_node* prevend = NULL; 
-
-	for (int gap = 1; gap < len; gap = gap*2) { 
-		start1 = *head; 
-		while (start1) { 
-			bool isFirstIter = 0; 
-			if (start1 == *head) 
-				isFirstIter = 1; 
-
-			int counter = gap; 
-			end1 = start1; 
-			while (--counter && end1->next) 
-				end1 = end1->next; 
-
-			start2 = end1->next; 
-			if (!start2) 
-				break; 
-			counter = gap; 
-			end2 = start2; 
-			while (--counter && end2->next) 
-				end2 = end2->next; 
-
-			list_node* temp = end2->next; 
-
-            list_node* temp1 = NULL; 
-            if (list_comparator(start1->data,start2->data)) { 
-                list_swap(&start1, &start2); 
-                list_swap(&end1, &end2); 
-            } 
-
-            list_node* astart = start1, *aend = end1; 
-            list_node* bstart = start2, *bend = end2; 
-            list_node* bendnext = (end2)->next; 
-            while (astart != aend && bstart != bendnext) { 
-                if (list_comparator(astart->next->data, bstart->data)) { 
-                    temp1 = bstart->next;
-                    bstart->next = astart->next; 
-                    astart->next = bstart; 
-                    bstart = temp1; 
-                } 
-                astart = astart->next; 
-            } 
-            if (astart == aend) 
-                astart->next = bstart; 
-            else
-                end2 = end1; 
-
-            if (isFirstIter) 
-                *head = start1; 
-            else
-                prevend->next = start1; 
-
-            prevend = end2; 
-            start1 = temp; 
-        } 
-        prevend->next = start1; 
-	}
-    list_node* p = *head;
-    while(p->next != NULL)  {
-        p = p -> next;
-    }
-    l->tail = p;
 }
 
 void list_swap(list_node** n1, list_node** n2) {
@@ -342,7 +286,10 @@ list* list_merge(list* list1, list* list2) {
 
 void list_concat(list* list1, list* list2) {
     list1->tail->next = list2->head;
-    list1->tail = list2->tail; 
+    list2->head->prev = list1->tail;
+    list1->tail = list2->tail;
+    list2->head = NULL;
+    list2->tail = NULL;
 }
 
 void* list_to_array(list* l)   {

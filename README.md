@@ -152,7 +152,7 @@ bst* bst_create(int, void*, void*, void*);
 ```
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   | 1.size of the data type <br> 2. lesser than function <3> greater than function <4> equal to function |
+| input   | 1.size of the data type <br> 2. lesser than function <br> 3. greater than function <br> 4.equal to function |
 | output   | the created bst |
 
 
@@ -181,7 +181,7 @@ void bst_print_preorder(bst* ,void (*print_data)(void*));
 ```
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   | 1. a bst 2.function pointer of the function that determines what to be done while traversing |
+| input   | 1. a bst <br> 2.function pointer of the function that determines what to be done while traversing |
 | output   |void|
 
 ### bst_print_postorder
@@ -190,7 +190,7 @@ void bst_print_postorder(bst* ,void (*print_data)(void*));
 ```
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   | 1. a bst 2.function pointer of the function that determines what to be done while traversing |
+| input   | 1. a bst <br> 2.function pointer of the function that determines what to be done while traversing |
 | output   |void|
 
 ### bst_print_inorder
@@ -199,7 +199,7 @@ void bst_print_inorder(bst*, void (*print_data)(void*));
 ```
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   | 1. a bst 2.function pointer of the function that determines what to be done while traversing |
+| input   | 1. a bst <br> 2.function pointer of the function that determines what to be done while traversing |
 | output   |void|
 
 ## heap
@@ -237,5 +237,5 @@ void heap_print(heap*, void (*print_element)(void*));
 ```
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   | 1. a heap 2.function pointer of the function that determines what to be done while traversing |
+| input   | 1. a heap <br> 2.function pointer of the function that determines what to be done while traversing |
 | output   |void|

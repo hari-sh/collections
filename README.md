@@ -24,7 +24,7 @@ void list_add(list* l, void* data);
 
 |        |           |
 ---     |    ---      |
-input   | 1. a list
+input   | 1. a list <br>
           2. desired data to be inserted |
 output   |  void |
 

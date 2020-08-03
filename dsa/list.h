@@ -11,23 +11,23 @@ typedef void (*list_print_data)(void* data);
 list* list_create(int size);
 list_node* list_new_node(void* data, int size);
 
-void list_print(list*, list_print_data);
-void list_push(list*, void* data);
-void list_add(list*, void* data);
-void* list_pop(list* tail);
-void* list_remove(list*);
-void list_reverse(list*);
-void list_insert(list*, int, void* data);
-void* list_delete(list* ,int);
-void* list_data(list* list,int index);
-void list_clear(list* list);
+void list_print(list* l, list_print_data);
+void list_push(list* l, void* data);
+void list_add(list* l, void* data);
+void* list_pop(list* l);
+void* list_remove(list* l);
+void list_reverse(list* l);
+void list_insert(list* l, int p, void* data);
+void* list_delete(list* l, int p);
+void* list_data(list* l,int index);
+void list_clear(list* l);
 void list_swap(list_node** n1, list_node** n2);
 int (*list_comparator)(void* data);
-void* list_first(list* list, int (*list_comparator)(void* data));
-list* list_select(list* list, int (*list_comparator)(void* data));
+void* list_first(list* l, int (*list_comparator)(void* data));
+list* list_select(list* l, int (*list_comparator)(void* data));
 list* list_copy(list* l);
-void list_concat(list* list1, list* list2);
-list* list_merge(list* list1, list* list2);
+void list_concat(list* l1, list* l2);
+list* list_merge(list* l1, list* l2);
 void* list_mcopy(void* src, int size);
 
 struct list_node   {

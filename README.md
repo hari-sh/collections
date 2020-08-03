@@ -17,8 +17,8 @@ list_add
 void list_add(list* l, void* data);
 ```
 
-|        |           |
----     |    ---      |
+| parameter name     | value   |
+| ---    |    ---      |
 | input   | 1. a list <br> 2. desired data to be inserted |
 | output   |  void |
 

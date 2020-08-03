@@ -9,7 +9,7 @@ libdsa is a generic data structure library for c language
   - bst
 
 # functions
-# list
+### list
 
 
 list_add
@@ -89,7 +89,7 @@ list_mcopy
 void* list_mcopy(void* src, int size);
 ```
 
-# bst
+### bst
 
 bst_create
 ```
@@ -121,7 +121,7 @@ bst_print_inorder
 void bst_print_inorder(bst*, void (*print_data)(void*));
 ```
 
-# heap
+### heap
 heap_build
 ```
 void heap_build(heap*);

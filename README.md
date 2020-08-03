@@ -17,10 +17,10 @@ list_add
 void list_add(list* l, void* data);
 ```
 
-|input | 1. a list |
-|      | 2. desired data to be inserted |
-|------|-----------|
-|output| void      |
+| input  | 1. a list |
+|        | 2. desired data to be inserted |
+|------  |-----------|
+| output | void      |
 
 list_push
 ```

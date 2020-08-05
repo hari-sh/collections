@@ -6,23 +6,22 @@
 
 typedef struct list_node list_node;
 typedef struct list list;
-typedef void (*list_print_data)(void* data);
+typedef void (*list_traverse_data)(void* data);
 
 list* list_create(int size);
 list_node* list_new_node(void* data, int size);
 
-void list_print(list* l, list_print_data);
+void list_traverse(list* l, list_traverse_data);
 void list_push(list* l, void* data);
 void list_add(list* l, void* data);
 void* list_pop(list* l);
 void* list_remove(list* l);
 void list_reverse(list* l);
-void list_insert(list* l, int p, void* data);
-void* list_delete(list* l, int p);
-void* list_data(list* l,int index);
+void list_insert(list* l, int index, void* data);
+void* list_delete(list* l, int index);
+void* list_data(list* l, int index);
 void list_clear(list* l);
 void list_swap(list_node** n1, list_node** n2);
-int (*list_comparator)(void* data);
 void* list_first(list* l, int (*list_comparator)(void* data));
 list* list_select(list* l, int (*list_comparator)(void* data));
 list* list_copy(list* l);
@@ -66,19 +65,19 @@ list* list_create(int size) {
     return l;
 }
 
-void list_print(list* l, void (*list_print_data)(void*))  {
+void list_traverse(list* l, void (*list_traverse_data)(void*))  {
     list_node *p = l->head;
     while (p != NULL)   {
-        list_print_data(p->data);
+        list_traverse_data(p->data);
         p = p->next;
     }
     printf("\n");
 }
 
-void list_rprint(list* l, void (*list_print_data)(void*))  {
+void list_rtraverse(list* l, void (*list_traverse_data)(void*))  {
     list_node *p = l->tail;
     while (p != NULL)   {
-        list_print_data(p->data);
+        list_traverse_data(p->data);
         p = p->prev;
     }
     printf("\n");
@@ -163,16 +162,16 @@ void* list_remove(list* l)  {
     return res;
 }
 
-void list_insert(list* l, int pos, void* n)    {
-    if(pos <= l->count)  {
-        if(pos==0)
+void list_insert(list* l, int index, void* n)    {
+    if(index <= l->count)  {
+        if(index==0)
             list_add(l,n);
-        else if(pos==(l->count))
+        else if(index==(l->count))
             list_push(l,n);
         else  {
             list_node *temp = l->head;
             list_node *new_node = list_new_node(n, l->size);
-            for(int i=0; i<(pos-1); i++)
+            for(int i=0; i<(index-1); i++)
                 temp = temp->next;
             new_node->next = temp->next;
             new_node->prev = temp;
@@ -182,16 +181,16 @@ void list_insert(list* l, int pos, void* n)    {
     }
 }
 
-void* list_delete(list* l, int pos)   {
+void* list_delete(list* l, int index)   {
     void* res = NULL;
-    if((pos < l->count) && (l->head != NULL))   {
-        if (pos == 0)
+    if((index < l->count) && (l->head != NULL))   {
+        if (index == 0)
             res = list_remove(l);
-        else if(pos==(l->count)-1)
+        else if(index==(l->count)-1)
             res = list_pop(l);
         else    {
             list_node *temp = l->head;
-            for(int i=0; i<(pos-1); i++)
+            for(int i=0; i<(index-1); i++)
                 temp = temp->next;
             res = temp->next->data;
             temp->next = temp->next->next;
@@ -216,6 +215,13 @@ void list_clear(list* l)
    } 
     l->head = NULL;
     l->tail = NULL;
+}
+
+void list_destroy(list* l) 
+{ 
+   list_clear(l);
+   free(l);
+   l = NULL;
 }
 
 void* list_data(list* l,int n)    {

@@ -53,7 +53,7 @@ void list_insert(list* l, int p, void* data);
 
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   |1. a list <br> 2.the position of insertion <br> 3. data to be inserted |
+| input   |1. a list <br> 2.the indexition of insertion <br> 3. data to be inserted |
 | output   |  void|
 
 ## list_delete
@@ -62,7 +62,7 @@ void* list_delete(list* l, int p);
 ```
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   |1. a list <br> 2.the position of insertion|
+| input   |1. a list <br> 2.the indexition of insertion|
 | output   |  data to be deleted|
 
 ## list_data

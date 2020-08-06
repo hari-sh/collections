@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
-#include <stdarg.h>
 
 typedef struct list_node list_node;
 typedef struct list list;
@@ -163,7 +161,11 @@ void* list_remove(list* l)  {
 }
 
 void list_insert(list* l, int index, void* n)    {
-    if(index <= l->count)  {
+    if(index < 0)   {
+        index = l->count + index + 1;
+        printf("neg pos %d\n", index);
+    }
+    if((index <= l->count) && (index >= 0))  {
         if(index==0)
             list_add(l,n);
         else if(index==(l->count))
@@ -174,6 +176,7 @@ void list_insert(list* l, int index, void* n)    {
             for(int i=0; i<(index-1); i++)
                 temp = temp->next;
             new_node->next = temp->next;
+            temp->next->prev = new_node;
             new_node->prev = temp;
             temp->next = new_node;
             (l->count)++;
@@ -182,8 +185,12 @@ void list_insert(list* l, int index, void* n)    {
 }
 
 void* list_delete(list* l, int index)   {
+    if(index < 0)   {
+        index = l->count + index + 1;
+        printf("neg pos %d\n", index);
+    }
     void* res = NULL;
-    if((index < l->count) && (l->head != NULL))   {
+    if((index < l->count) && (l->head != NULL) && index >=0)   {
         if (index == 0)
             res = list_remove(l);
         else if(index==(l->count)-1)
@@ -224,10 +231,10 @@ void list_destroy(list* l)
    l = NULL;
 }
 
-void* list_data(list* l,int n)    {
-    if(n < l->count) {
+void* list_data(list* l,int index)    {
+    if(index < l->count) {
         list_node *p = l->head;
-        for (int i=0; i<n; i++) {
+        for (int i=0; i<index; i++) {
             p = p->next;
         }
         return p->data;

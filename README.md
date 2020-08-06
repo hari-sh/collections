@@ -3,15 +3,12 @@
 ## list_push
 ```
 void list_push(list* l, void* data);
-```
-<center>
- 
+``` 
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | 1. a list <br> 2. desired data to be inserted |
 | output   |  void |
 
-</center>
 ## list_pop
 ```
 void* list_pop(list* l);

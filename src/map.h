@@ -4,11 +4,12 @@
 
 typedef struct bst_node bst_node;
 typedef struct bst bst;
+typedef int (*comparator)(void*, void*);
 
-bst* bst_create(int, void*, void*, void*);
+bst* bst_create(int, int (*compare)(void* data1, void* data2));
 bst_node* bst_new_node(void*, int);
 void bst_push_util(bst_node** ,void*, int, int (*lt)(void*, void*));
-void bst_pop_util(bst_node**,void*, int (*lt)(void*, void*), int (*gt)(void*, void*), int (*et)(void*, void*));
+void bst_pop_util(bst_node**,void*, int (*compare)(void*, void*));
 void bst_print_preorder_util(bst_node*, void (*print_data)(void*));
 void bst_print_postorder_util(bst_node*, void (*print_data)(void*));
 void bst_print_inorder_util(bst_node*, void (*print_data)(void*));
@@ -22,9 +23,7 @@ void bst_print_inorder(bst*, void (*print_data)(void*));
 struct bst  {
     bst_node* root;
     int size;
-    int (*gt)(void*, void*);
-    int (*lt)(void*, void*);
-    int (*et)(void*, void*);
+    comparator compare;
 };
 
 struct bst_node{
@@ -35,22 +34,20 @@ struct bst_node{
 };
 
 
-bst* bst_create(int size, void* gt, void* lt, void* et)  {
+bst* bst_create(int size, comparator compare)  {
 	bst* b = malloc(sizeof(bst));
     b->root = NULL;
     b->size = size;
-    b->lt = lt;
-    b->gt = gt;
-    b->et = et;
+    b->compare = compare;
 	return b;
 }
 
 void bst_push(bst* b ,void* data)    {
-    bst_push_util(&(b->root), data, b->size, b->lt);
+    bst_push_util(&(b->root), data, b->size, b->compare);
 }
 
 void bst_pop(bst* b,void* data)  {
-    bst_pop_util(&(b->root), data, b->lt, b->gt, b->et);
+    bst_pop_util(&(b->root), data, b->compare);
 }
 
 void bst_print_preorder(bst* b, void (*print_data)(void*))   {
@@ -99,30 +96,29 @@ void bst_print_preorder_util(bst_node* root, void (*print_data)(void*))    {
 	}
 }
 
-void bst_push_util(bst_node** node,void* data, int size, int (*lt)(void*, void*))   {	
+void bst_push_util(bst_node** node,void* data, int size, comparator compare)   {
 	if(*node==NULL)   {
 		(*node)=bst_new_node(data, size);
 	}
-    else if(lt(data, (*node)->data))   {
-		bst_push_util(&((*node)->left), data, size, lt);
+    else if(compare(data, (*node)->data) == -1)   {
+		bst_push_util(&((*node)->left), data, size, compare);
     }
 	else    {
-		bst_push_util(&((*node)->right), data, size, lt);
+		bst_push_util(&((*node)->right), data, size, compare);
     }
 }
 
 
-void bst_pop_util(bst_node** root, void* key, int (*lt)(void*, void*), int (*gt)(void*, void*), int (*et)(void*, void*)) 
-{ 
+void bst_pop_util(bst_node** root, void* key, comparator compare) { 
 	if ((*root) == NULL) return; 
 
-	if (lt(key, (*root)->data)) 
-		bst_pop_util(&((*root)->left), key, lt, gt, et); 
+	if (compare(key, (*root)->data) == -1)
+		bst_pop_util(&((*root)->left), key, compare); 
 
-	else if (gt(key, (*root)->data)) 
-		bst_pop_util(&((*root)->right), key, lt, gt, et); 
+	else if (compare(key, (*root)->data) == 1) 
+		bst_pop_util(&((*root)->right), key, compare); 
 
-	else
+	else if (compare(key, (*root)->data) == 0)
 	{ 
 		if ((*root)->left == NULL) 
 		{ 
@@ -148,6 +144,6 @@ void bst_pop_util(bst_node** root, void* key, int (*lt)(void*, void*), int (*gt)
 
 		(*root)->data = temp->data; 
 
-		bst_pop_util(&((*root)->right), temp->data, lt, gt, et); 
+		bst_pop_util(&((*root)->right), temp->data, compare); 
 	} 
 }

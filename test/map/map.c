@@ -3,29 +3,30 @@
 #include "map.h"
 
 int compare(void* data1, void* data2)   {
-    int d1 = *(int*)data1;
-    int d2 = *(int*)data2;
-    return (d1 > d2) ? 1 : (d1 < d2) ? -1 : 0;
+    char* d1 = *(char**)data1;
+    char* d2 = *(char**)data2;
+    //return (d1 > d2) ? 1 : (d1 < d2) ? -1 : 0;
+    return strcmp(d1,d2);
 }
 
 void printd(void* data)   {
-    printf("%d ", *(int*)data);
+    printf("%s ", *(char**)data);
 }
 
 int main(void)  {
 
-    bst* bst = bst_create(sizeof(int), compare);
-    int data = 5;
+    bst* bst = bst_create(sizeof(char*), compare);
+    char* data = "hari";
 	bst_push(bst, &data);
-    data = 3;
+    data = "rana";
 	bst_push(bst, &data);
-    data = 6;
+    data = "bhai";
 	bst_push(bst, &data);
-    data = 1;
+    data = "great";
 	bst_push(bst, &data);
-    data = 7;
+    data = "legend";
 	bst_push(bst, &data);
-    data = 4;
+    data = "suspect";
 	bst_push(bst, &data);
 
 	bst_print_preorder(bst, printd);
@@ -35,22 +36,5 @@ int main(void)  {
     bst_print_postorder(bst, printd);
 	printf("\n");
 
-    data = 5;
-	bst_pop(bst, &data);
-    data = 4;
-	bst_pop(bst, &data);
-    data = 1;
-	bst_pop(bst, &data);
-
-	bst_print_preorder_util(bst->root, printd);
-	printf("\n");
-
-    printf("%d",strcmp("a","a"));
-	printf("\n");
-    printf("%d",strcmp("aab","aaba"));
-	printf("\n");
-    printf("%d",strcmp("bb","aa"));
-	printf("\n");
-    
     return 0;
 }

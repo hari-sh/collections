@@ -90,7 +90,7 @@ void list_clear(list* l);
 ```
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   |1. a list |
+| input   |a list |
 | output   |  void|
 
 ## list_destroy
@@ -99,7 +99,7 @@ void list_clear(list* l);
 ```
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   |1. a list |
+| input   |a list |
 | output   |  void|
 
 
@@ -196,7 +196,7 @@ void* heap_pop(heap*);
 
 | parameter          | value                              |
 | ---                |    ---                             |
-| input   | 1. a heap  |
+| input   | a heap  |
 | output   | poped out data |
 
 ## heap_print

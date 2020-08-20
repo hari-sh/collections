@@ -162,7 +162,7 @@ void* list_remove(list* l)  {
 
 void list_insert(list* l, int index, void* n)    {
     if(index < 0)   {
-        index = l->count + index + 1;
+        index = l->count + index;
         printf("neg pos %d\n", index);
     }
     if((index <= l->count) && (index >= 0))  {
@@ -186,7 +186,7 @@ void list_insert(list* l, int index, void* n)    {
 
 void* list_delete(list* l, int index)   {
     if(index < 0)   {
-        index = l->count + index + 1;
+        index = l->count + index;
         printf("neg pos %d\n", index);
     }
     void* res = NULL;

@@ -16,7 +16,7 @@ void main() {
     list* l1 = list_create(sizeof(int));
 
     i = 0; 
-    index = -1;
+    index = 0;
     printf("%d...", index);
     list_insert(l1, index, &i);
     list_traverse(l1, print_data);
@@ -24,7 +24,7 @@ void main() {
     list_rtraverse(l1, print_data);
 
     i = 1;
-    index = -2;
+    index = -1;
     printf("%d...", index);
     list_insert(l1, index, &i);
     list_traverse(l1, print_data);
@@ -48,7 +48,7 @@ void main() {
     list_rtraverse(l1, print_data);
 
     i = -1;
-    index = 3;
+    index = -2;
     printf("%d...", index);
     list_insert(l1, index, &i);
 

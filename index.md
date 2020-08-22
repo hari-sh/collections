@@ -41,8 +41,8 @@ void list_add(list* l, void* data);
 ```
 void* list_remove(list* l);
 ```
-| parameter          | value                              |
-| ---                |    ---                             |
+| parameter | value |
+| ---       |  ---  |
 | input   | a list|
 | output   |  data to be deleted|
 

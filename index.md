@@ -4,6 +4,7 @@
 ```
 list* list_create(int size);
 ```
+creates and return an empty **list** of the given **size**
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -14,6 +15,7 @@ list* list_create(int size);
 ```
 void list_push(list* l, void* data);
 ```
+pushes the given **data** into the **end** of the give **list**
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -24,6 +26,7 @@ void list_push(list* l, void* data);
 ```
 void* list_pop(list* l);
 ```
+pops the **data** from **end** of the given **list**
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -34,6 +37,7 @@ void* list_pop(list* l);
 ```
 void list_add(list* l, void* data);
 ```
+pushes the given **data** into the **beginning** of the give **list**
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -44,6 +48,8 @@ void list_add(list* l, void* data);
 ```
 void* list_remove(list* l);
 ```
+pops the **data** from **beginning** of the given **list**
+
 | parameter | value |
 | ---       |  ---  |
 | input   | a list|
@@ -52,8 +58,9 @@ void* list_remove(list* l);
 
 ## list_insert
 ```
-void list_insert(list* l, int p, void* data);
+void list_insert(list* l, int index, void* data);
 ```
+pushes the given **data** at the given **index** of the given **list**
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -62,8 +69,9 @@ void list_insert(list* l, int p, void* data);
 
 ## list_delete
 ```
-void* list_delete(list* l, int p);
+void* list_delete(list* l, int index);
 ```
+pops the **data** from given **index** of the given **list**
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -74,6 +82,7 @@ void* list_delete(list* l, int p);
 ```
 void list_reverse(list* l);
 ```
+reverse the given **list**
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -84,6 +93,7 @@ void list_reverse(list* l);
 ```
 void* list_data(list* l,int index);
 ```
+peeks the **data** from the given index of the given **list**
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -94,6 +104,7 @@ void* list_data(list* l,int index);
 ```
 void list_clear(list* l);
 ```
+clears out all the data from the given **list**
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -104,6 +115,7 @@ void list_clear(list* l);
 ```
 void list_clear(list* l);
 ```
+deletes the given **list** 
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -115,6 +127,7 @@ void list_clear(list* l);
 ```
 void* list_first(list* l, int (*list_comparator)(void* data));
 ```
+returns the first occuring match of the given **list**. The **comparator** function have to be made should be passed as an argument of the function. Based on the comparator function the first occuring match would be found
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -126,6 +139,7 @@ void* list_first(list* l, int (*list_comparator)(void* data));
 ```
 list* list_select(list* l, int (*list_comparator)(void* data));
 ```
+returns all the matches of the given **list**. The **comparator** function have to be made should be passed as an argument of the function. Based on the comparator function a list will be made with the matched values and returned from the function
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -136,6 +150,7 @@ list* list_select(list* l, int (*list_comparator)(void* data));
 ```
 list* list_copy(list* l);
 ```
+copies the given **list** to a newly created list and is returned
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -146,6 +161,7 @@ list* list_copy(list* l);
 ```
 void list_concat(list* l1, list* l2);
 ```
+concatenates the second list to the end of first list
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -156,6 +172,7 @@ void list_concat(list* l1, list* l2);
 ```
 list* list_merge(list* l1, list* l2);
 ```
+creates a new list and copies **l1** and **l2** to it one after another and returns the new list
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -167,6 +184,7 @@ list* list_merge(list* l1, list* l2);
 ```
 void list_traverse(list* l, list_traverse_data);
 ```
+traverse the **list** from head to tail. A function is to be made on what need to be done the traversal and passed as an argument to this function
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -177,6 +195,7 @@ void list_traverse(list* l, list_traverse_data);
 ```
 void list_traverse(list* l, list_traverse_data);
 ```
+traverse the **list** from tail to head. A function is to be made on what need to be done the traversal and passed as an argument to this function
 
 | parameter          | value                              |
 | ---                |    ---                             |

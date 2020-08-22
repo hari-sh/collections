@@ -4,6 +4,7 @@
 ```
 list* list_create(int size);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | size of the datatype to be inserted in the list |
@@ -13,6 +14,7 @@ list* list_create(int size);
 ```
 void list_push(list* l, void* data);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | 1. a list <br> 2. desired data to be inserted |
@@ -22,6 +24,7 @@ void list_push(list* l, void* data);
 ```
 void* list_pop(list* l);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | a list|
@@ -61,6 +64,7 @@ void list_insert(list* l, int p, void* data);
 ```
 void* list_delete(list* l, int p);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   |1. a list <br> 2.the indexition of insertion|
@@ -70,6 +74,7 @@ void* list_delete(list* l, int p);
 ```
 void list_reverse(list* l);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | a list|
@@ -79,6 +84,7 @@ void list_reverse(list* l);
 ```
 void* list_data(list* l,int index);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   |1. a list <br> 2.the index of the required data|
@@ -88,6 +94,7 @@ void* list_data(list* l,int index);
 ```
 void list_clear(list* l);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   |a list |
@@ -97,6 +104,7 @@ void list_clear(list* l);
 ```
 void list_clear(list* l);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   |a list |
@@ -107,6 +115,7 @@ void list_clear(list* l);
 ```
 void* list_first(list* l, int (*list_comparator)(void* data));
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   |1. a list <br> 2.function pointer of the comparator function that is written by the user based on which the first occurance of the condition met will occur|
@@ -117,6 +126,7 @@ void* list_first(list* l, int (*list_comparator)(void* data));
 ```
 list* list_select(list* l, int (*list_comparator)(void* data));
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   |1. a list <br> 2.function pointer of the comparator function that is written by the user based on which selection will occur|
@@ -126,6 +136,7 @@ list* list_select(list* l, int (*list_comparator)(void* data));
 ```
 list* list_copy(list* l);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | a list |
@@ -135,6 +146,7 @@ list* list_copy(list* l);
 ```
 void list_concat(list* l1, list* l2);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   |two lists|
@@ -144,6 +156,7 @@ void list_concat(list* l1, list* l2);
 ```
 list* list_merge(list* l1, list* l2);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | two lists|
@@ -154,6 +167,7 @@ list* list_merge(list* l1, list* l2);
 ```
 void list_traverse(list* l, list_traverse_data);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | 1.a list <br> 2. function pointer of the fuction which decided what needs to be done while traversing|
@@ -163,6 +177,7 @@ void list_traverse(list* l, list_traverse_data);
 ```
 void list_traverse(list* l, list_traverse_data);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | 1.a list <br> 2. function pointer of the fuction which decided what needs to be done while traversing in reverse direction|
@@ -174,6 +189,7 @@ void list_traverse(list* l, list_traverse_data);
 ```
 void heap_build(heap*);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | a heap |
@@ -184,6 +200,7 @@ void heap_build(heap*);
 ```
 void heap_push(heap*, void*);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | 1. a heap <br> 2. data to be inserted |
@@ -203,6 +220,7 @@ void* heap_pop(heap*);
 ```
 void heap_print(heap*, void (*print_element)(void*));
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   | 1. a heap <br> 2.function pointer of the print function which would print a single element |
@@ -215,13 +233,16 @@ void heap_print(heap*, void (*print_element)(void*));
 ```
 map* map_create(int key_size, int value_size, map_compare compare);
 ```
+
 | parameter          | value                              |
 | ---                |    ---                             |
 | input   |1. size of key <br> 2.size of value <br> 3. function pointer of the comparator |
 | output   |  map |
 
 ## map_push
+```
 void map_push(map* map, void* key, void* value); 
+```
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -229,7 +250,9 @@ void map_push(map* map, void* key, void* value);
 | output   |  void |
 
 ## map_pop
+```
 void* map_pop(map* map, void* key);
+```
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -237,7 +260,9 @@ void* map_pop(map* map, void* key);
 | output   |  value |
 
 ## map_traverse
+```
 void map_traverse(map* map, map_access_data map_access_data);
+```
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -245,7 +270,9 @@ void map_traverse(map* map, map_access_data map_access_data);
 | output   |  void |
 
 ## map_get
+```
 void* map_get(map* map, void* key);
+```
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -254,7 +281,9 @@ void* map_get(map* map, void* key);
 
 
 ## map_values
+```
 void* map_values(map* map);
+```
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -262,7 +291,9 @@ void* map_values(map* map);
 | output   |  an array of values |
 
 ## map_keys
+```
 void* map_keys(map* map);
+```
 
 | parameter          | value                              |
 | ---                |    ---                             |
@@ -270,7 +301,9 @@ void* map_keys(map* map);
 | output   |  an array of keys |
 
 ## map_clear
+```
 void map_clear(map* map);
+```
 
 | parameter          | value                              |
 | ---                |    ---                             |

@@ -95,3 +95,19 @@ void heap_up(heap* h, int c)  {
 		swap(&(h->heap[c*h->size]),&(h->heap[p*h->size]), h->size);
 	heap_up(h, p);
 }
+
+void heap_sort(heap* h, void (*print_element)(void*))    {
+    heap_build(h);
+    int temp = *(h->count);
+    for (int i=temp-1; i>0; i--) 
+    {
+        print_element(&h->heap[0]);
+        print_element(&h->heap[i*h->size]);
+        printf("\n");
+        swap(&(h->heap[0]), &(h->heap[i*h->size]), h->size);
+        (*h->count)--;
+        heap_down(h, 0);
+        heap_print(h, print_element);
+    }
+    *(h->count) = temp;
+}

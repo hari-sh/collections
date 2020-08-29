@@ -15,15 +15,12 @@ void main() {
     p =(int[9]){8,5,4,7,9,2,6,3,1};
     int n = 9;
     
-  heap* h = heap_create(p, &n, sizeof(int), comparator);
-    heap_print(h, print_element);
-
+    heap* h = heap_create(p, &n, sizeof(int), comparator);
     heap_build(h);
     heap_print(h, print_element);
+
+    heap_sort(h, print_element);
+
+    heap_print(h, print_element);
     
-    for(int i=0; i<8; i++)  {
-        print_element(heap_pop(h));
-        printf("....");
-        heap_print(h, print_element);
-    }
 }

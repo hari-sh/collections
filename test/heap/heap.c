@@ -16,11 +16,8 @@ void main() {
     int n = 9;
     
     heap* h = heap_create(p, &n, sizeof(int), comparator);
-    heap_build(h);
-    heap_print(h, print_element);
-
-    heap_sort(h, print_element);
 
     heap_print(h, print_element);
-    
+    heap_sort(h);
+    heap_print(h, print_element);  
 }
